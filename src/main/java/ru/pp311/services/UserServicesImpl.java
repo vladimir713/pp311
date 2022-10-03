@@ -1,47 +1,53 @@
 package ru.pp311.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.pp311.dao.UserDAO;
+//import ru.pp311.dao.UserDAO;
 import ru.pp311.models.User;
-import javax.transaction.Transactional;
+import ru.pp311.repository.UserRepository;
+
 import java.util.List;
 
 @Component
 public class UserServicesImpl implements UserService {
 
-    private final UserDAO userDAO;
-    public UserServicesImpl(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
+    @Autowired
+    private UserRepository ur;
 
-    @Transactional
+//    private final UserDAO userDAO;
+//    public UserServicesImpl(UserDAO userDAO) {
+//        this.userDAO = userDAO;
+//    }
+
+//    @Transactional
     @Override
     public List<User> index() {
-        return userDAO.index();
+        return (List<User>) ur.findAll();
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public void save(User user) {
-        userDAO.save(user);
+        ur.save(user);
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public void delete(int id) {
-        userDAO.delete(id);
+        ur.deleteById(id);
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public User show(int id) {
-        return userDAO.show(id);
+        return ur.findById(id).get();
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public void update(int id, User user) {
-        userDAO.update(id, user);
+        User urDB = ur.findById(id).get();
+        ur.save(urDB);
     }
 
 }

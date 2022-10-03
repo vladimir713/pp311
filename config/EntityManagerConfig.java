@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@PropertySource("classpath:db.properties")
+@PropertySource("application.properties")
 @EnableTransactionManagement
 @ComponentScan("ru.pp311")
 public class EntityManagerConfig {
